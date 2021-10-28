@@ -8,12 +8,12 @@ Exercises
 4. Change the speed of the ball.
 
 """
-
+import random
 from random import randrange
 from turtle import *
 from freegames import vector
 
-ball = vector(-200, -200)
+ball = vector(-300, -300)
 speed = vector(0, 0)
 targets = []
 
@@ -22,12 +22,18 @@ def tap(x, y):
     if not inside(ball):
         ball.x = -199
         ball.y = -199
-        speed.x = (x + 200) / 25
-        speed.y = (y + 200) / 25
+        speed.x = (x + 300) / 25
+        speed.y = (y + 300) / 25
 
 def inside(xy):
     "Return True if xy within screen."
-    return -200 < xy.x < 200 and -200 < xy.y < 200
+    return -300 < xy.x < 300 and -300 < xy.y < 300
+
+colors = ['blue', 'orange', 'yellow', 'green', 'purple']
+def selectRandom(colors):
+    color = random.choice(colors)
+    colors.remove(color)
+    return color
 
 def draw():
     "Draw ball and targets."
@@ -35,7 +41,7 @@ def draw():
 
     for target in targets:
         goto(target.x, target.y)
-        dot(20, 'blue')
+        dot(20, target_color) 
 
     if inside(ball):
         goto(ball.x, ball.y)
@@ -71,6 +77,8 @@ def move():
             return
 
     ontimer(move, 50)
+
+target_color = selectRandom(colors)
 
 setup(420, 420, 370, 0)
 hideturtle()
